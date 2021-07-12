@@ -1,18 +1,16 @@
 require 'spec_helper'
 
-# describe = テストのグループ化
-RSpec.describe '四則計算' do
+# describe class名
+RSpec.describe User do
+  describe '#greet' do
+    it '12歳以下であったら、語尾が「でーす！」になること' do
+     user = User.new(age: 12, name: 'はなこ')
+     expect(user.greet).to eq '#{@age}でーす！'
+    end
 
-  # itはexample(it do...end)という単位にまとめる
-  # 1つのexample内には、1つのエクスペクテーションが原則
-  it '1+1は2になる' do
-    expect(1 + 1).to eq 2
-  end
-
-  # describeのネストもOK
-  describe '引き算' do
-    it '10-1は9' do
-      expect(10 - 1).to eq 9
+    it '12歳より大きければ、語尾が「です」になること' do
+      user = User.new(age: 13, name: '花子')
+      expect(user.greet).to eq '#{@age}です'
     end
   end
 end
