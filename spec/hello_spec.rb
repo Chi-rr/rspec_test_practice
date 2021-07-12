@@ -1,4 +1,4 @@
-require_relative '../lib/hello'
+require 'spec_helper'
 
 RSpec.describe Hello do
   it "message return hello" do
