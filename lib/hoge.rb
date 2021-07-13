@@ -6,9 +6,9 @@ class User
 
   def greet
     if @age <= 12
-      "#{@age}でーす！"
+      "#{@name}でーす！"
     else
-      "#{@age}です"
+      "#{@name}です"
     end
   end
 end
