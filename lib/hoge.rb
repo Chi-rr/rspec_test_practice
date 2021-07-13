@@ -5,10 +5,14 @@ class User
   end
 
   def greet
-    if @age <= 12
+    if child?
       "#{@name}でーす！"
     else
       "#{@name}です"
     end
+  end
+
+  def child?
+    @age <= 12
   end
 end
