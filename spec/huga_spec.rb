@@ -13,4 +13,11 @@ RSpec.describe 'changeマッチャ' do
     # expect(X).to change(Y).from(A).to(B) = Xすると、YがA→Bとなる
     expect{ array.pop }.to change{ array.size }.from(3).to(2)
   end
+
+  it 'change×byで、A増減することを確認' do
+    array = [1, 2, 3]
+    # expect(X).to change(Y).by(A) = Xすると、Yが+Aor-Aとなる
+    expect{ array.pop }.to change{ array.size }.by(-1)
+    expect{ array.push(4, 5) }.to change{ array.size }.by(2)
+  end
 end
