@@ -1,10 +1,14 @@
-class ShoppingCart
+class Lottery
+  KUJI = %w(あたり ハズレ ハズレ ハズレ)
   def initialize
-    @items = []
+    @result = KUJI.sample
   end
 
-  def add(item)
-    raise 'Item is nil!!!' if item.nil?
-    @items << item
+  def win?
+    @result == 'あたり'
+  end
+
+  def self.generate_results(count)
+    Array.new(count){ self.new }
   end
 end
