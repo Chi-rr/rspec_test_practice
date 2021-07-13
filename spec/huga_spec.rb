@@ -1,15 +1,16 @@
 require 'spec_helper'
 
-RSpec.describe '四則計算' do
-  it '1+1=2' do
-    expect(1 + 1).to eq 2
-  end
+RSpec.describe 'be/eqについて' do
+  let(:color1) { 'red' }
+  let(:color2) { 'red' }
   
-  specify '1+1=2' do
-    expect(1 + 1).to eq 2
+  # インスタンスが異なるので別物
+  it 'beを使うとcolor1 != color2' do
+    expect(color1).not_to be color2
   end
-  
-  example '1+1=2' do
-    expect(1 + 1).to eq 2
+
+  # インスタンスが異なっても、同値のためパスする
+  it 'eqを使うとcolor1 == color2' do
+    expect(color1).to eq color2
   end
 end
