@@ -1,19 +1,16 @@
 require 'spec_helper'
 
-RSpec.describe '真偽値の確認' do
-  # ※Rybyは、false/nilは偽、それ以外は真
-  it 'be_truthy/be_falsey、テストはパスする' do
-    expect(1).to be_truthy
-    expect(nil).to be_falsey
+RSpec.describe 'changeマッチャ' do
+  it '(changeなし)配列のサイズが減少することを確認' do
+    array = [1, 2, 3]
+    expect(array.size).to eq 3
+    array.pop #=>[1, 2]
+    expect(array.size).to eq 2
   end
 
-  it 'be true/alseの場合、テストは失敗する' do
-    expect(1).not_to be true
-    expect(nil).not_to be false
-  end
-
-  it 'eq true/falseの場合、テストは同じく失敗する' do
-    expect(1).not_to eq true
-    expect(nil).not_to eq false
+  it 'changeを利用して、配列のサイズが減少することを確認' do
+    array = [1, 2, 3]
+    # expect(X).to change(Y).from(A).to(B) = Xすると、YがA→Bとなる
+    expect{ array.pop }.to change{ array.size }.from(3).to(2)
   end
 end
