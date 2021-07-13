@@ -1,18 +1,10 @@
-class User
-  def initialize(name:, age:)
-    @name = name
-    @age = age
+class ShoppingCart
+  def initialize
+    @items = []
   end
 
-  def greet
-    if child?
-      "#{@name}でーす！"
-    else
-      "#{@name}です"
-    end
-  end
-
-  def child?
-    @age <= 12
+  def add(item)
+    raise 'Item is nil!!!' if item.nil?
+    @items << item
   end
 end
