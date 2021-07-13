@@ -1,23 +1,23 @@
 require 'spec_helper'
 
-RSpec.describe 'changeマッチャ' do
-  it '(changeなし)配列のサイズが減少することを確認' do
+RSpec.describe 'includeマッチャ' do
+  it '配列内に含まれる値を確認' do
     array = [1, 2, 3]
-    expect(array.size).to eq 3
-    array.pop #=>[1, 2]
-    expect(array.size).to eq 2
+    expect(array).to include 1, 2
   end
 
-  it 'changeを利用して、配列のサイズが減少することを確認' do
-    array = [1, 2, 3]
-    # expect(X).to change(Y).from(A).to(B) = Xすると、YがA→Bとなる
-    expect{ array.pop }.to change{ array.size }.from(3).to(2)
+  it 'hash内に含まれる値を確認' do
+    hash = { :coffee => 100, :latte => 200, :special => { :moca => 300 } }
+    expect(hash).to include :coffee
+    expect(hash).to include :coffee => 100, :latte => 200
+    expect(hash).not_to include :moca => 300
+    expect(hash).not_to include :hoge
   end
 
-  it 'change×byで、A増減することを確認' do
-    array = [1, 2, 3]
-    # expect(X).to change(Y).by(A) = Xすると、Yが+Aor-Aとなる
-    expect{ array.pop }.to change{ array.size }.by(-1)
-    expect{ array.push(4, 5) }.to change{ array.size }.by(2)
+  it '文字列に含まれる値を確認' do
+    string = 'hogefuga123'
+    expect(string).to include 'hoge'
+    expect(string).to include 'efu'
+    expect(string).not_to include 'hofu13'
   end
 end
