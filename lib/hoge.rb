@@ -1,14 +1,11 @@
-class Lottery
-  KUJI = %w(あたり ハズレ ハズレ ハズレ)
-  def initialize
-    @result = KUJI.sample
+require 'twitter'　#gemが必要
+
+class WeatherBot
+  def tweet_forecast
+    twitter_client.update '今日は晴れです'
   end
 
-  def win?
-    @result == 'あたり'
-  end
-
-  def self.generate_results(count)
-    Array.new(count){ self.new }
+  def twitter_client
+    Twitter::REST::Client.new
   end
 end
