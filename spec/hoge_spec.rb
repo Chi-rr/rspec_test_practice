@@ -20,6 +20,6 @@ RSpec describe WeatherBot do
     weather_bot = WeatherBot.new
     allow(weather_bot).to receive_message_chain('twitter_client.search.first.text').and_return('天気は曇り')
 
-    expect(weather_bot.search_first_weather_tweet).to eq '西脇市の天気は曇りです'
+    expect(weather_bot.search_first_weather_tweet).to eq '天気は曇り'
   end
 end
