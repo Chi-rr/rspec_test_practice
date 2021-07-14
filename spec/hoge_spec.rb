@@ -2,17 +2,24 @@ require 'spec_helper'
 
 # describe class名
 RSpec describe WeatherBot do
-  it 'エラーなく、予報をツイートすること' do
-    twitter_client_mock = double('Twitter client')
-    # 引数が一つの場合
-    allow(twitter_client_mock).to receive(:update).with('今日は晴れです')
+  it '天気を含む最初のツイートを返すこと' do
+    status_mock = double('Status')
+    allow(status_mock).to receive(:text).and_return('天気は曇り')
 
-    # WeatherBotクラスの全インスタンスに対し、twitter_clientメソッドが呼ばれた時にモックを戻り値として返す
-    # allow_any_instance_of(クラス).to receive(:目的のメソッド).and_return(戻り値)
-    allow_any_instance_of(WeatherBot).to receive(:twitter_client).and_return(twitter_client_mock)
+    twitter_client_mock = double('TwitterClient')
+    allow(twitter_client).to receive(:serch).and_return([status_mock])
 
     weather_bot = WeatherBot.new
-    # allow(weather_bot).to receive(:twitter_client).and_return(twitter_client_mock)
-    expect{ weather_bot.tweet_forecast }.not_to raise_error
+    allow(weather_bot).to receive(:twitter_client).and_return(twitter_client_mock)
+
+    expect(weather_bot.serch_first_wether_tweet).to eq '天気は曇り'
+  end
+
+  # 上記と同じテスト↑
+  it '天気を含む最初のツイートを返すこと(receive_message_chainを利用)' do
+    weather_bot = WeatherBot.new
+    allow(weather_bot).to receive_message_chain('twitter_client.search.first.text').and_return('天気は曇り')
+
+    expect(weather_bot.search_first_weather_tweet).to eq '西脇市の天気は曇りです'
   end
 end
