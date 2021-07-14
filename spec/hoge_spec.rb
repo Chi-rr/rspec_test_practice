@@ -18,7 +18,7 @@ RSpec describe WeatherBot do
     weather_bot = WeatherBot.new
     allow(weather_bot).to receive(:twitter_client).and_return(twitter_client_mock)
     # エラーの発生を受け、notifyメソッドが呼ばれることを検証
-    expect(weather_bot).to receive(:notify)
+    expect(weather_bot).to receive(:notify).once
 
     # コードを実行する
     # tweet_forecastメソッドを呼び出し、notifyメソッドが呼ばれればテストはパス
