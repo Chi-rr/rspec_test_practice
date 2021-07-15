@@ -1,24 +1,27 @@
 require 'spec_helper'
 
-RSpec.describe 'fuga' do
-  describe 'ここは[1]' do
-    it 'ここは[1:1]' do
-      expect(true).to be true
+# このテストが必ずパスするようになった
+class Counter
+  def initialize
+    @mutex = Mutex.new
+    @count = 0
+  end
+
+  attr_reader :count
+
+  def increment
+    @mutex.synchronize { @count += 1 }
+  end
+end
+
+RSpec.describe Counter do
+  let(:counter) { Counter.new }
+
+  it 'increments the count in a threadsafe manner' do
+    threads = 10.times.map do
+      Thread.new { 1000.times { counter.increment } }
     end
-    it 'ここは[1:2]' do
-      expect(true).to be true
-    end
-    it 'ここは[1:3]' do
-      expect(true).to be true
-    end
-    it 'ここは[1:4]' do
-      expect(true).to be true
-    end
-    it 'ここは[1:5]' do
-      expect(true).to be true
-    end
-    it 'ここは[1:6]' do
-      expect(true).to be true
-    end
+    threads.each &:join
+    expect(counter.count).to eq 10_000
   end
 end
