@@ -15,7 +15,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # 全テストでaggregate_failuresが有効にする(aggregate_failures: falseで無効化)
-  config.define_derivered_metadata do |meta|
+  config.define_derived_metadata do |meta|
     meta[:aggregate_failures] = true unless meta.key?(:aggregate_failures)
   end
   # rspec-expectations config goes here. You can use an alternate
