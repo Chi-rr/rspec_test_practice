@@ -14,6 +14,10 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  # 全テストでaggregate_failuresが有効にする(aggregate_failures: falseで無効化)
+  config.define_derived_metadata do |meta|
+    meta[:aggregate_failures] = true unless meta.key?(:aggregate_failures)
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -53,9 +57,9 @@ RSpec.configure do |config|
   # metadata: `fit`, `fdescribe` and `fcontext`, respectively.
   config.filter_run_when_matching :focus
 
-  # Allows RSpec to persist some state between runs in order to support
-  # the `--only-failures` and `--next-failure` CLI options. We recommend
-  # you configure your source control system to ignore this file.
+  # 失敗したテストだけを再実行できる--only-failuresを利用するため、失敗を検知するファイルを設定している↓
+  # 失敗したテストを一件ずつ修正できる--next-failureオプションも下記ファイルを参照する
+  # このファイル内でstatusが「failed」のものだけを実行
   config.example_status_persistence_file_path = "spec/examples.txt"
 
   # Limits the available syntax to the non-monkey patched syntax that is
@@ -87,7 +91,7 @@ RSpec.configure do |config|
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
-  #     --seed 1234
+  # rspec --seed seed値で、実行順序を再現できる(※seed値；Randomized with seed 27523)
   config.order = :random
 
   # Seed global randomization in this process using the `--seed` CLI option.
