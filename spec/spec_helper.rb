@@ -58,6 +58,7 @@ RSpec.configure do |config|
   config.filter_run_when_matching :focus
 
   # 失敗したテストだけを再実行できる--only-failuresを利用するため、失敗を検知するファイルを設定している↓
+  # 失敗したテストを一件ずつ修正できる--next-failureオプションも下記ファイルを参照する
   # このファイル内でstatusが「failed」のものだけを実行
   config.example_status_persistence_file_path = "spec/examples.txt"
 
