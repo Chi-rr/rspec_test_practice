@@ -91,7 +91,7 @@ RSpec.configure do |config|
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
-  #     --seed 1234
+  # rspec --seed seed値で、実行順序を再現できる(※seed値；Randomized with seed 27523)
   config.order = :random
 
   # Seed global randomization in this process using the `--seed` CLI option.
