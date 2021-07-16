@@ -1,27 +1,14 @@
 require 'spec_helper'
 
-# このテストが必ずパスするようになった
-class Counter
-  def initialize
-    @mutex = Mutex.new
-    @count = 0
+RSpec.describe 'hoge' do
+  it '10は1以上10以下であること' do
+    expect(10).to be_between(1, 10)
+    # inclusive = デフォルトで両端の値含む
+    expect(10).to be_between(1, 10).inclusive
   end
 
-  attr_reader :count
-
-  def increment
-    @mutex.synchronize { @count += 1 }
-  end
-end
-
-RSpec.describe Counter do
-  let(:counter) { Counter.new }
-
-  it 'increments the count in a threadsafe manner' do
-    threads = 10.times.map do
-      Thread.new { 1000.times { counter.increment } }
-    end
-    threads.each &:join
-    expect(counter.count).to eq 10_000
+  # exclusive = 両端含まない
+  it '10は1より大きく10より小さい数値ではないこと' do
+    expect(10).not_to be_between(1, 10).exclusive
   end
 end
